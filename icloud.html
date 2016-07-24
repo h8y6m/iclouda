@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>icloud</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/angular.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body ng-controller="todo">
+<div class="container">
+    <div class="left">
+        <div class="title">
+            <a href="" class="logo">iCloud</a>
+            <!-- 添加按钮 -->
+            <div class="add" ng-click="add()">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <!-- 列表 -->
+        <ul class="list">
+            <li ng-repeat=" v in todo"  ng-click='select($index)' ng-style="{'background':$index==index?'#ccc':''}">
+                <span  ng-style="{'background':v.color}"></span>
+                <h4>{{v.title}}</h4>
+            </li>
+        </ul>
+    </div>
+    <div class="right">
+            <div class="search">
+                   <span class="search-icon"></span>
+                <input placeholder="搜索所有提醒" type="text">
+            </div>
+              <div class="list">
+                  <div class="title">
+                      <h3 ng-style="{'color':todo[index].color}">{{todo[index].title}}</h3>
+                      <div class="btn"  ng-style="{'color':todo[index].color}"  ng-click="f=!f">选项</div>
+                       <div class="r_xx" ng-show="f">
+                          <div class="r_xx_xx">
+                              <input type="text" ng-model="todo[index].title" ng-style="{'color':fontColor}">
+                              <span class="lbys">列表颜色</span>
+                              <ul>
+                                  <li class="over_yuan" ng-repeat="v in color" ng-style="{'background-color':v,'border-color':v==fontColor?v:'transparent'}" ng-click="gest($index)"></li>
+                              </ul>
+
+                              <span style="color:red;display:inline-block;margin-left:20px;"  ng-click="delete(index)">删除</span>
+                              <span style="color:#007AFF;display:inline-block;margin-left:180px;" ng-click="f=false">取消</span>
+                              <span style="color:#007AFF;font-weight: bold;" ng-click="finish(f=false)">完成</span>
+                          </div>
+                      </div
+                  </div>
+                  <div class="content">
+                      <div class="com">
+                          <div>
+                              <i></i>
+                          <span>已完成{{doneNum}}项</span>
+                          </div>
+                          <!-- 已完成的事 -->
+                          <ul ng-show="flag" class='lists'>
+                              <li ng-repeat=" v in todo[index].list | filter:done">
+                                  <span ng-style="{'border-color':todo[index].color,'background-color':todo[index].color}" ng-click='changeDone(v,false)'></span>
+                                  <input type="text" ng-model='v.content'>
+                              </li>
+                          </ul>
+                          <div class="aaa" style='width:100%;height:40px;'></div>
+                          <!-- 还要做的事 -->
+                          <ul class="now">
+                              <li ng-repeat=" v in todo[index].list | filter:doing">
+                                  <span ng-style="{'border-color':todo[index].color,'background-color':rgba(0,0,0,0)}" ng-click='changeDone(v,true)'></span>
+                                  <input type="text" ng-model='v.content'>
+                              </li>
+                          </ul>
+                      </div>
+                      <div ng-click="addList()" class='new'>新项目</div>
+                  </div>
+              </div>
+    </div>
+</div>
+</body>
+</html>
